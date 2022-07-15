@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphqlQueryService } from 'src/app/services/graphql-query.service';
+import { Store } from '@ngrx/store';
+import { Post } from 'src/app/model/post.model';
+import { get_Post } from 'src/app/store/posts.action';
+import { get_posts } from 'src/app/store/posts.selector';
 
 @Component({
   selector: 'app-posts',
@@ -7,15 +10,16 @@ import { GraphqlQueryService } from 'src/app/services/graphql-query.service';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
-  public postsList: any;
+  public postsList!: Post[];
 
-  constructor(private graphqlQueryService: GraphqlQueryService) {}
+  constructor(private store: Store<any>) {}
 
   ngOnInit(): void {
-    this.graphqlQueryService.getPosts().subscribe((res: any) => {
-      if (res?.data?.posts?.data) {
-        this.postsList = res?.data?.posts?.data;
+    this.store.select(get_posts).subscribe((resp: any) => {
+      if (resp && resp.posts) {
+        this.postsList = resp.posts;
       }
     });
+    this.store.dispatch(get_Post());
   }
 }
