@@ -1,3 +1,4 @@
+import { PostDataService } from './services/post-data.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -10,12 +11,10 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { EntityDataModule } from '@ngrx/data';
+import { EntityDataModule, EntityDataService } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { PostsEffects } from './store/posts.effects';
-import { postsReducer } from './store/posts.reducer';
 
 @NgModule({
   declarations: [
@@ -27,8 +26,8 @@ import { postsReducer } from './store/posts.reducer';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ posts: postsReducer }),
-    EffectsModule.forRoot([PostsEffects]),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -40,4 +39,11 @@ import { postsReducer } from './store/posts.reducer';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    entityDataService: EntityDataService,
+    postDataService: PostDataService
+  ) {
+    entityDataService.registerService('Post', postDataService);
+  }
+}
