@@ -15,6 +15,8 @@ import { EntityDataModule, EntityDataService } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CounterDataService } from './counter-service/counter-data.service';
+import { CounterListComponent } from './counter-list/counter-list.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     PostsComponent,
     ViewPostComponent,
     HomeComponent,
+    CounterListComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,8 +45,13 @@ import { HttpClientModule } from '@angular/common/http';
 export class AppModule {
   constructor(
     entityDataService: EntityDataService,
-    postDataService: PostDataService
+    postDataService: PostDataService,
+    counterDataService: CounterDataService
   ) {
-    entityDataService.registerService('Post', postDataService);
+    // entityDataService.registerService('Post', postDataService);
+    entityDataService.registerServices({
+      Post: postDataService,
+      Counter: counterDataService,
+    });
   }
 }

@@ -1,3 +1,4 @@
+import { CounterListComponent } from './counter-list/counter-list.component';
 import { ViewPostComponent } from './posts/view-post/view-post.component';
 import { PostsComponent } from './posts/posts/posts.component';
 import { HomeComponent } from './posts/home/home.component';
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'post/:id',
     component: ViewPostComponent,
+  },
+  {
+    path: 'counter-list',
+    component: CounterListComponent,
   },
 ];
 
