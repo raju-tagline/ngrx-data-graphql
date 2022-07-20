@@ -1,3 +1,4 @@
+import { PostResolver } from './resolver/post.resolver';
 import { CounterListComponent } from './counter-list/counter-list.component';
 import { ViewPostComponent } from './posts/view-post/view-post.component';
 import { PostsComponent } from './posts/posts/posts.component';
@@ -13,13 +14,20 @@ const routes: Routes = [
   {
     path: 'posts',
     component: PostsComponent,
+    resolve: {
+      posts: PostResolver,
+    },
   },
   {
     path: 'post/:id',
     component: ViewPostComponent,
   },
   {
-    path: 'counter-list',
+    path: 'user-profile',
+    component: CounterListComponent,
+  },
+  {
+    path: 'user-profile/:id',
     component: CounterListComponent,
   },
 ];

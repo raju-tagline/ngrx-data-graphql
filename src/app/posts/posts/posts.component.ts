@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/post.model';
 import { PostService } from 'src/app/services/post.service';
-import { get_Post } from 'src/app/store/posts.action';
-import { get_posts } from 'src/app/store/posts.selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -14,9 +12,27 @@ import { get_posts } from 'src/app/store/posts.selector';
 export class PostsComponent implements OnInit {
   public postsList!: Observable<Post[]>;
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.postsList = this.postService.getAll();
+    // this.postsList = this.postService.getAll();
+    this.postsList = this.postService.entities$;
   }
+
+  /**
+   * viewUserData()
+   */
+  public viewUserData(userId: any) {
+    if (userId) {
+      const queryParams = {
+        userId: userId,
+      };
+      this.router.navigate(['user-profile'], { queryParams });
+    }
+  }
+
+  
 }
