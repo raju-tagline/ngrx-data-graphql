@@ -1,3 +1,5 @@
+import { environment } from './../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Apollo, gql } from 'apollo-angular';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -30,7 +32,7 @@ export class CounterListComponent implements OnInit {
 
   constructor(
     private counterService: CounterService,
-    private apollo: Apollo,
+    private http: HttpClient,
     private activeRoute: ActivatedRoute
   ) {}
 
@@ -47,17 +49,9 @@ export class CounterListComponent implements OnInit {
    * getUserData
    */
   public getUserData(key: any) {
-    this.apollo
-      .watchQuery({
-        query: get_UserData,
-        variables: {
-          id: key,
-        },
-      })
-      .valueChanges.subscribe((res: any) => {
-        if (res) {
-          this.postsList = res.data.user;
-        }
-      });
+    this.counterService.getAll().subscribe((data: any) => {
+      const userData = data.find((ele: any) => ele.id === key);
+      this.postsList = userData;
+    });
   }
 }

@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Apollo, gql } from 'apollo-angular';
 import { HttpClient } from '@angular/common/http';
 import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
@@ -28,17 +29,35 @@ export class CounterDataService extends DefaultDataService<any> {
     httpUrlGenerator: HttpUrlGenerator,
     private apollo: Apollo
   ) {
-    super('Counter', http, httpUrlGenerator);
+    super('Users', http, httpUrlGenerator);
   }
 
-  override getAll(): Observable<any[]> {
-    return this.apollo
-      .watchQuery({
-        query: GET_POSTS,
+  override getAll(): any {
+    return this.http.get<any>(`${environment.url}users.json`).pipe(
+      map((data: any) => {
+        const posts: any[] = [];
+        for (let key in data) {
+          posts.push({ ...data[key], id: key });
+        }
+        return posts;
       })
-      .valueChanges.pipe(
-        map((data: any) => {
-          return data.data.posts.data;
+    );
+  }
+
+  override add(data: any): Observable<any> {
+    return this.http
+      .post<{ name: string }>(`${environment.url}users.json`, data)
+      .pipe(
+        map((resp: any) => {
+          const updateData = {
+            email: resp.email,
+            address: resp.address,
+            full_name: resp.full_name,
+            gender: resp.gender,
+            userId: resp.userId,
+            id: resp.name,
+          };
+          return updateData;
         })
       );
   }

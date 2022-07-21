@@ -1,0 +1,35 @@
+<div class="row m-0 justify-content-center m-2">
+  <div class="col-6 card">
+    <h5 class="mt-1">{{ router.url.includes('postId') ? 'Update Post' : 'Add Post' }}</h5>
+    <div class="row justify-content-center">
+      <div class="col-10 m-3">
+        <form action="" [formGroup]="addPostForm" (ngSubmit)="onSubmit()">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            name="title"
+            formControlName="title"
+            placeholder="Enter title....."
+            id="title"
+            class="form-control"
+          />
+          <label for="body">Body</label>
+          <input
+            type="text"
+            name="body"
+            formControlName="body"
+            placeholder="Enter body....."
+            id="body"
+            class="form-control"
+          />
+          <button
+            class="btn btn-sm btn-warning mt-2"
+            [disabled]="this.addPostForm.invalid"
+          >
+          {{ router.url.includes('postId') ? 'Update' : 'Add' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

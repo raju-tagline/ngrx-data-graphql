@@ -1,9 +1,14 @@
 <div class="row justify-content-center m-0">
+  <div class="col-10 mb-2">
+    <button class="btn" routerLink="/post">Add Post</button>
+  </div>
+</div>
+<div class="row justify-content-center m-0">
   <div class="col-10">
     <table class="table table-striped table-hover" *ngIf="postsList | async">
       <thead>
         <th>No.</th>
-        <th>ID</th>
+        <th>POST ID</th>
         <th>BODY</th>
         <th>TITLE</th>
         <th>ACTION</th>
@@ -15,8 +20,23 @@
           <td>{{ post.body }}</td>
           <td>{{ post.title }}</td>
           <td>
-            <button class="btn btn-sm btn-primary" (click)="viewUserData(post.id)">
-              View
+            <button
+              class="btn btn-sm btn-primary mx-1"
+              (click)="viewUserData(post)"
+            >
+              Profile
+            </button>
+            <button
+              class="btn btn-sm btn-warning mx-1"
+              (click)="editPost(post)"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-sm btn-danger mx-1"
+              (click)="deletePost(post)"
+            >
+              Remove
             </button>
           </td>
         </tr>

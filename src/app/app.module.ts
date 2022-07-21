@@ -17,6 +17,10 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CounterDataService } from './counter-service/counter-data.service';
 import { CounterListComponent } from './counter-list/counter-list.component';
+import { AddPostComponent } from './posts/add-post/add-post.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserDataComponent } from './users/user-data/user-data.component';
+import { AddUserComponent } from './users/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +29,15 @@ import { CounterListComponent } from './counter-list/counter-list.component';
     ViewPostComponent,
     HomeComponent,
     CounterListComponent,
+    AddPostComponent,
+    UserDataComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
@@ -51,7 +60,7 @@ export class AppModule {
     // entityDataService.registerService('Post', postDataService);
     entityDataService.registerServices({
       Post: postDataService,
-      Counter: counterDataService,
+      Users: counterDataService,
     });
   }
 }

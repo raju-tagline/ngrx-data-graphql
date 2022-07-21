@@ -1,0 +1,73 @@
+<ng-container>
+  <div class="row m-0 justify-content-center m-2">
+    <div class="col-6 card">
+      <h5 class="mt-1">Add User</h5>
+      <div class="row justify-content-center">
+        <div class="col-10 m-3">
+          <form action="" [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+            <label for="full_name">Full Name</label>
+            <input
+              type="text"
+              name="full_name"
+              formControlName="full_name"
+              placeholder="Enter your Full name"
+              id="full_name"
+              class="form-control"
+            />
+            <label for="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              formControlName="email"
+              placeholder="Enter email"
+              id="email"
+              class="form-control"
+            />
+            <label for="address">Address</label>
+            <input
+              type="text"
+              name="address"
+              formControlName="address"
+              placeholder="Enter Address"
+              id="address"
+              class="form-control"
+            />
+            <div class="row mt-2">
+              <div class="col-2">
+                <h5>Gender</h5>
+              </div>
+              <div class="col-2">
+                <label for="male">Male</label>
+                <input
+                  type="radio"
+                  name="gender"
+                  formControlName="gender"
+                  id="male"
+                  value="male"
+                  class="m-1"
+                />
+              </div>
+              <div class="col-2">
+                <label for="female">Female</label>
+                <input
+                  type="radio"
+                  name="gender"
+                  formControlName="gender"
+                  id="female"
+                  value="female"
+                  class="m-1"
+                />
+              </div>
+            </div>
+            <button
+              class="btn btn-sm btn-warning mt-2"
+              [disabled]="this.addUserForm.invalid"
+            >
+              Add
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

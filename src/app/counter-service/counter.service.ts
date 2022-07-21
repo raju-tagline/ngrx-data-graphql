@@ -9,6 +9,6 @@ import {
 })
 export class CounterService extends EntityCollectionServiceBase<any> {
   constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
-    super('Counter', serviceElementsFactory);
+    super('Users', serviceElementsFactory);
   }
 }
