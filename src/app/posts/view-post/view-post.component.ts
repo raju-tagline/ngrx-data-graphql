@@ -13,18 +13,28 @@ export class ViewPostComponent implements OnInit {
   constructor(
     public router: Router,
     private postService: PostService,
-    private activeRoute: ActivatedRoute,
+    private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.postService.getAll().subscribe((res: any) => {
+    this.postService.entities$.subscribe((res: any) => {
       this.activeRoute.queryParams.subscribe((data: any) => {
         let posts: any = [];
-        res.forEach((resp: any) => {
-          if (resp.userId === data.userId) {
-            posts.push(resp);
-          }
-        });
+        if (res.length) {
+          res.forEach((resp: any) => {
+            if (resp.userId === data.userId) {
+              posts.push(resp);
+            }
+          });
+        } else {
+          this.postService.getAll().subscribe((respp: any) => {
+            respp.forEach((resp: any) => {
+              if (resp.userId === data.userId) {
+                posts.push(resp);
+              }
+            });
+          });
+        }
         this.postsList = posts;
       });
     });

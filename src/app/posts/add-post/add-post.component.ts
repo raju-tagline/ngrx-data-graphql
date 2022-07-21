@@ -24,8 +24,14 @@ export class AddPostComponent implements OnInit {
     this.createForm();
     if (this.router.url.includes('postId')) {
       this.activeRoute.queryParams.subscribe((res: any) => {
-        this.postService.getAll().subscribe((data: any) => {
-          this.postData = data.find((ele: any) => ele.id === res.postId);
+        this.postService.entities$.subscribe((data: any) => {
+          if (data.length) {
+            this.postData = data.find((ele: any) => ele.id === res.postId);
+          } else {
+            this.postService.getAll().subscribe((resp: any) => {
+              this.postData = resp.find((ele: any) => ele.id === res.postId);
+            });
+          }
           this.addPostForm.patchValue({
             title: this.postData.title,
             body: this.postData.body,

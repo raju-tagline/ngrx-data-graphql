@@ -29,8 +29,15 @@ export class CounterListComponent implements OnInit {
    * getUserData
    */
   public getUserData(key: any) {
-    this.counterService.getAll().subscribe((data: any) => {
-      const userData = data.find((ele: any) => ele.id === key);
+    this.counterService.entities$.subscribe((data: any) => {
+      let userData: any = [];
+      if (data.length) {
+        userData = data.find((ele: any) => ele.id === key);
+      } else {
+        this.counterService.getAll().subscribe((resp: any) => {
+          userData = resp.find((ele: any) => ele.id === key);
+        });
+      }
       this.postsList = userData;
     });
   }

@@ -1,3 +1,4 @@
+import { UserDataComponent } from './users/user-data/user-data.component';
 import { AddPostComponent } from './posts/add-post/add-post.component';
 import { PostResolver } from './resolver/post.resolver';
 import { CounterListComponent } from './counter-list/counter-list.component';
@@ -49,12 +50,20 @@ const routes: Routes = [
     component: AddUserComponent,
   },
   {
+    path: 'add-user/:id',
+    component: AddUserComponent,
+  },
+  {
     path: 'user-posts',
     component: ViewPostComponent,
   },
   {
     path: 'user-posts/:id',
     component: ViewPostComponent,
+  },
+  {
+    path: 'users',
+    component: UserDataComponent,
   },
 ];
 
