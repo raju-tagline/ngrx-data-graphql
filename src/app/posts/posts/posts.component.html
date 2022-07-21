@@ -9,16 +9,16 @@
       <thead>
         <th>No.</th>
         <th>POST ID</th>
-        <th>BODY</th>
         <th>TITLE</th>
+        <th>BODY</th>
         <th>ACTION</th>
       </thead>
       <tbody>
         <tr *ngFor="let post of postsList | async; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ post.id }}</td>
-          <td>{{ post.body }}</td>
           <td>{{ post.title }}</td>
+          <td>{{ post.body }}</td>
           <td>
             <button
               class="btn btn-sm btn-primary mx-1"

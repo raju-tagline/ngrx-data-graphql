@@ -22,6 +22,17 @@ export class AddPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    if (this.router.url.includes('postId')) {
+      this.activeRoute.queryParams.subscribe((res: any) => {
+        this.postService.getAll().subscribe((data: any) => {
+          this.postData = data.find((ele: any) => ele.id === res.postId);
+          this.addPostForm.patchValue({
+            title: this.postData.title,
+            body: this.postData.body,
+          });
+        });
+      });
+    }
   }
 
   /**
@@ -47,25 +58,17 @@ export class AddPostComponent implements OnInit {
       };
       this.counterService.getAll().subscribe((res: any) => {
         if (res) {
-          let index: any =
-            res.length - Math.floor(Math.random() * (res.length / 2));
-          index >= res.length ? index - 1 : index;
+          // let index: any =
+          //   res.length - Math.floor(Math.random() * (res.length / 2));
+          // index = index >= res.length ? index - (res.length - 2) : index;
+          let index: any = Math.floor(this.randomNumber(0, 4));
           data.userId = res[index].id;
         }
         this.postService.add(data);
       });
       this.addPostForm.reset();
       this.router.navigate(['/posts']);
-    } else{
-      this.activeRoute.queryParams.subscribe((res: any) => {
-        this.postService.getAll().subscribe((data: any) => {
-          this.postData = data.find((ele: any) => ele.id === res.postId);
-          this.addPostForm.patchValue({
-            title: this.postData.title,
-            body: this.postData.body,
-          });
-        });
-      });
+    } else {
       this.updatePost();
     }
   }
@@ -81,7 +84,11 @@ export class AddPostComponent implements OnInit {
     };
     this.postService.update(postData);
     this.addPostForm.reset();
-    this.postService.getAll()
+    this.postService.getAll();
     this.router.navigate(['/posts']);
+  }
+
+  public randomNumber(min: any, max: any) {
+    return Math.random() * (max - min) + min;
   }
 }

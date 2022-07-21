@@ -1,1 +1,65 @@
-<p>view-post works!</p>
+<div class="row justify-content-center m-0">
+  <div class="col-10 mb-2">
+    <button class="btn" routerLink="/add-user">Add User</button>
+  </div>
+</div>
+<div class="container mt-1">
+  <div class="main-body">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a class="text-black" [routerLink]="'/posts'">Home</a>
+        </li>
+        <li class="breadcrumb-item" routerLink="/user-posts">
+          <a [ngClass]="router.url.includes('user-posts') ? '' : 'text-black'">User</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page" *ngIf="!router.url.includes('user-posts')">User Profile</li>
+      </ol>
+      <hr />
+    </nav>
+    <!-- /Breadcrumb -->
+    <div class="row gutters-sm">
+      <div class="row justify-content-center m-0">
+        <div class="row justify-content-center m-0">
+          <div class="col-10">
+            <table
+              class="table table-striped table-hover"
+              *ngIf="postsList"
+            >
+              <thead>
+                <th>No.</th>
+                <th>POST ID</th>
+                <th>BODY</th>
+                <th>TITLE</th>
+                <th>ACTION</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let post of postsList; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ post.id }}</td>
+                  <td>{{ post.body }}</td>
+                  <td>{{ post.title }}</td>
+                  <td>
+                    <button
+                      class="btn btn-sm btn-warning mx-1"
+                      (click)="editPost(post)"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn btn-sm btn-danger mx-1"
+                      (click)="deletePost(post)"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

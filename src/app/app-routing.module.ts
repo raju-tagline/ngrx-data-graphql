@@ -48,6 +48,14 @@ const routes: Routes = [
     path: 'add-user',
     component: AddUserComponent,
   },
+  {
+    path: 'user-posts',
+    component: ViewPostComponent,
+  },
+  {
+    path: 'user-posts/:id',
+    component: ViewPostComponent,
+  },
 ];
 
 @NgModule({

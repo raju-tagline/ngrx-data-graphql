@@ -1,27 +1,7 @@
-import { environment } from './../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Apollo, gql } from 'apollo-angular';
+import { gql } from 'apollo-angular';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { CounterService } from '../counter-service/counter.service';
-import { ActivatedRoute } from '@angular/router';
-
-const get_UserData = gql`
-  query ($id: ID!) {
-    user(id: $id) {
-      id
-      username
-      email
-      address {
-        geo {
-          lat
-          lng
-        }
-      }
-    }
-  }
-`;
-
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-counter-list',
   templateUrl: './counter-list.component.html',
@@ -32,8 +12,8 @@ export class CounterListComponent implements OnInit {
 
   constructor(
     private counterService: CounterService,
-    private http: HttpClient,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,5 +33,15 @@ export class CounterListComponent implements OnInit {
       const userData = data.find((ele: any) => ele.id === key);
       this.postsList = userData;
     });
+  }
+
+  /**
+   * changePath()
+   */
+  public changePath(userId: any) {
+    const queryParams = {
+      userId: userId,
+    };
+    this.router.navigate(['/user-posts'], { queryParams });
   }
 }

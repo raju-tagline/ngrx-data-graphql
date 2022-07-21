@@ -11,9 +11,10 @@
         <li class="breadcrumb-item">
           <a class="text-black" [routerLink]="'/posts'">Home</a>
         </li>
-        <li class="breadcrumb-item"><a class="text-black">User</a></li>
+        <li class="breadcrumb-item" (click)="changePath(postsList && postsList.id ? postsList.id : '')"><a class="text-black">User</a></li>
         <li class="breadcrumb-item active" aria-current="page">User Profile</li>
       </ol>
+      <hr>
     </nav>
     <!-- /Breadcrumb -->
     <div class="row gutters-sm">
