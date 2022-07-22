@@ -1,4 +1,3 @@
-import { gql } from 'apollo-angular';
 import { Component, OnInit } from '@angular/core';
 import { CounterService } from '../counter-service/counter.service';
 import { ActivatedRoute, Router } from '@angular/router';

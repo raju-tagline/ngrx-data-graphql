@@ -13,7 +13,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EntityDataModule, EntityDataService } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
-import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CounterDataService } from './counter-service/counter-data.service';
 import { CounterListComponent } from './counter-list/counter-list.component';
@@ -45,7 +44,6 @@ import { AddUserComponent } from './users/add-user/add-user.component';
       logOnly: environment.production,
     }),
     EntityDataModule.forRoot(entityConfig),
-    GraphQLModule,
     HttpClientModule,
   ],
   providers: [],
