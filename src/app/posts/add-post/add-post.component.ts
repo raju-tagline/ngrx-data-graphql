@@ -86,7 +86,6 @@ export class AddPostComponent implements OnInit {
       userId: this.postData.userId,
       id: this.postData.id,
     };
-    console.log('postData :>> ', postData);
     this.postService.update(postData);
     this.addPostForm.reset();
     this.router.navigate(['/posts']);

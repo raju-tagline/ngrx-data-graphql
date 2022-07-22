@@ -31,10 +31,18 @@ export class AddUserComponent implements OnInit {
             });
           }
           this.addUserForm.patchValue({
-            email: this.userData.email,
-            address: this.userData.address,
-            full_name: this.userData.full_name,
-            gender: this.userData.gender,
+            email:
+              this.userData && this.userData.email ? this.userData.email : '',
+            address:
+              this.userData && this.userData.address
+                ? this.userData.address
+                : '',
+            full_name:
+              this.userData && this.userData.full_name
+                ? this.userData.full_name
+                : '',
+            gender:
+              this.userData && this.userData.gender ? this.userData.gender : '',
           });
         });
       });

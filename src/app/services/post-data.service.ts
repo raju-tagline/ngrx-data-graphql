@@ -9,10 +9,7 @@ import { Post } from '../model/post.model';
   providedIn: 'root',
 })
 export class PostDataService extends DefaultDataService<Post> {
-  constructor(
-    http: HttpClient,
-    httpUrlGenerator: HttpUrlGenerator
-  ) {
+  constructor(http: HttpClient, httpUrlGenerator: HttpUrlGenerator) {
     super('Post', http, httpUrlGenerator);
   }
 
@@ -38,19 +35,15 @@ export class PostDataService extends DefaultDataService<Post> {
   }
 
   override add(data: any): Observable<any> {
-    console.log('data :>> ', data);
     return this.http
-      .post<{ name: string }>(`${environment.url}posts.json`, {
-        ...data,
-        id: name,
-      })
+      .post<{ name: string }>(`${environment.url}posts.json`, data)
       .pipe(
         map((resp: any) => {
-          console.log('resp :>> ', resp);
           const updateData = {
-            title: data.title,
-            body: data.body,
-            id: resp.name,
+            title: data && data.title ? data.title : '',
+            body: data && data.body ? data.body : '',
+            userId: data && data.userId ? data.userId : '',
+            id: resp && resp.name ? resp.name : '',
           };
           return updateData;
         })
@@ -58,7 +51,6 @@ export class PostDataService extends DefaultDataService<Post> {
   }
 
   override update(post: any): Observable<any> {
-    console.log('post :>> ', post);
     return this.http.put<any>(`${environment.url}posts/${post.id}.json`, {
       ...post.changes,
     });

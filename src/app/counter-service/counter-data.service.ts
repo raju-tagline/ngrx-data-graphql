@@ -30,13 +30,14 @@ export class CounterDataService extends DefaultDataService<any> {
       .pipe(
         map((resp: any) => {
           const updateData = {
-            email: resp.email,
-            address: resp.address,
-            full_name: resp.full_name,
-            gender: resp.gender,
-            userId: resp.userId,
-            id: resp.name,
+            email: data && data.email ? data.email : '',
+            address: data && data.address ? data.address : '',
+            full_name: data && data.full_name ? data.full_name : '',
+            gender: data && data.gender ? data.gender : '',
+            userId: data && data.userId ? data.userId : '',
+            id: resp && resp.name ? resp.name : '',
           };
+          console.log('USER updateData :>> ', updateData);
           return updateData;
         })
       );

@@ -25,21 +25,21 @@ export class UserDataComponent implements OnInit {
   /**
    * editPost
    */
-  public editUser(post: any) {
-    if (post && post.id) {
+  public editUser(user: any) {
+    if (user && user.id) {
       const queryParams = {
-        userId: post.id,
+        userId: user.id,
       };
       this.router.navigate(['/add-user'], { queryParams });
     }
   }
 
   /**
-   * deletePost
+   * deleteUser
    */
-  public deleteUser(post: any) {
-    if (post && post.id && confirm('WANT TO DELETE')) {
-      this.counterService.delete(post.id);
+  public deleteUser(user: any) {
+    if (user && user.id && confirm('WANT TO DELETE')) {
+      this.counterService.delete(user.id);
     }
   }
 }
