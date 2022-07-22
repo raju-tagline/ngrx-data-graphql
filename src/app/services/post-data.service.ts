@@ -23,7 +23,7 @@ export class PostDataService extends DefaultDataService<Post> {
     //       return res.data.posts.data;
     //     })
     //   );
-    return this.http.get<any>(`${environment.url}posts.json`).pipe(
+    return this.http.get<any>(`https://ngrx-332f4-default-rtdb.firebaseio.com/posts.json`).pipe(
       map((data: any) => {
         const posts: any[] = [];
         for (let key in data) {
@@ -36,7 +36,7 @@ export class PostDataService extends DefaultDataService<Post> {
 
   override add(data: any): Observable<any> {
     return this.http
-      .post<{ name: string }>(`${environment.url}posts.json`, data)
+      .post<{ name: string }>(`https://ngrx-332f4-default-rtdb.firebaseio.com/posts.json`, data)
       .pipe(
         map((resp: any) => {
           const updateData = {
@@ -51,13 +51,13 @@ export class PostDataService extends DefaultDataService<Post> {
   }
 
   override update(post: any): Observable<any> {
-    return this.http.put<any>(`${environment.url}posts/${post.id}.json`, {
+    return this.http.put<any>(`https://ngrx-332f4-default-rtdb.firebaseio.com/posts/${post.id}.json`, {
       ...post.changes,
     });
   }
 
   override delete(id: string): Observable<string> {
-    return this.http.delete(`${environment.url}posts/${id}.json`).pipe(
+    return this.http.delete(`https://ngrx-332f4-default-rtdb.firebaseio.com/posts/${id}.json`).pipe(
       map((data) => {
         return id;
       })

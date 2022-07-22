@@ -13,7 +13,7 @@ export class CounterDataService extends DefaultDataService<any> {
   }
 
   override getAll(): any {
-    return this.http.get<any>(`${environment.url}users.json`).pipe(
+    return this.http.get<any>(`https://ngrx-332f4-default-rtdb.firebaseio.com/users.json`).pipe(
       map((data: any) => {
         const posts: any[] = [];
         for (let key in data) {
@@ -26,7 +26,7 @@ export class CounterDataService extends DefaultDataService<any> {
 
   override add(data: any): Observable<any> {
     return this.http
-      .post<{ name: string }>(`${environment.url}users.json`, data)
+      .post<{ name: string }>(`https://ngrx-332f4-default-rtdb.firebaseio.com/users.json`, data)
       .pipe(
         map((resp: any) => {
           const updateData = {
@@ -44,13 +44,13 @@ export class CounterDataService extends DefaultDataService<any> {
   }
 
   override update(user: any): Observable<any> {
-    return this.http.put<any>(`${environment.url}users/${user.id}.json`, {
+    return this.http.put<any>(`https://ngrx-332f4-default-rtdb.firebaseio.com/users/${user.id}.json`, {
       ...user.changes,
     });
   }
 
   override delete(id: string): Observable<string> {
-    return this.http.delete(`${environment.url}users/${id}.json`).pipe(
+    return this.http.delete(`https://ngrx-332f4-default-rtdb.firebaseio.com/users/${id}.json`).pipe(
       map((data) => {
         return id;
       })
