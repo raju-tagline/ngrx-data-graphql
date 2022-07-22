@@ -15,7 +15,13 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.postsList = this.postService.getAll();
-    this.postsList = this.postService.entities$;
+    this.postService.entities$.subscribe((res: any) => {
+      if (res.length) {
+        this.postsList = this.postService.entities$;
+      } else {
+        this.postsList = this.postService.getAll();
+      }
+    });
   }
 
   /**

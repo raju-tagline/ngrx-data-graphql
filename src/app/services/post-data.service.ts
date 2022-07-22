@@ -1,25 +1,9 @@
 import { environment } from './../../environments/environment';
-import { gql, Apollo } from 'apollo-angular';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
 import { map, Observable } from 'rxjs';
 import { Post } from '../model/post.model';
-
-const GET_POSTS = gql`
-  query ($options: PageQueryOptions) {
-    posts(options: $options) {
-      data {
-        id
-        title
-        body
-      }
-      meta {
-        totalCount
-      }
-    }
-  }
-`;
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +11,7 @@ const GET_POSTS = gql`
 export class PostDataService extends DefaultDataService<Post> {
   constructor(
     http: HttpClient,
-    httpUrlGenerator: HttpUrlGenerator,
-    private apollo: Apollo
+    httpUrlGenerator: HttpUrlGenerator
   ) {
     super('Post', http, httpUrlGenerator);
   }
@@ -55,10 +38,15 @@ export class PostDataService extends DefaultDataService<Post> {
   }
 
   override add(data: any): Observable<any> {
+    console.log('data :>> ', data);
     return this.http
-      .post<{ name: string }>(`${environment.url}posts.json`, data)
+      .post<{ name: string }>(`${environment.url}posts.json`, {
+        ...data,
+        id: name,
+      })
       .pipe(
         map((resp: any) => {
+          console.log('resp :>> ', resp);
           const updateData = {
             title: data.title,
             body: data.body,
@@ -70,6 +58,7 @@ export class PostDataService extends DefaultDataService<Post> {
   }
 
   override update(post: any): Observable<any> {
+    console.log('post :>> ', post);
     return this.http.put<any>(`${environment.url}posts/${post.id}.json`, {
       ...post.changes,
     });

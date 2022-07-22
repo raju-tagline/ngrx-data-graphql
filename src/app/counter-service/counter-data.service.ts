@@ -41,4 +41,18 @@ export class CounterDataService extends DefaultDataService<any> {
         })
       );
   }
+
+  override update(user: any): Observable<any> {
+    return this.http.put<any>(`${environment.url}users/${user.id}.json`, {
+      ...user.changes,
+    });
+  }
+
+  override delete(id: string): Observable<string> {
+    return this.http.delete(`${environment.url}users/${id}.json`).pipe(
+      map((data) => {
+        return id;
+      })
+    );
+  }
 }

@@ -64,13 +64,11 @@ export class AddPostComponent implements OnInit {
       };
       this.counterService.getAll().subscribe((res: any) => {
         if (res) {
-          // let index: any =
-          //   res.length - Math.floor(Math.random() * (res.length / 2));
-          // index = index >= res.length ? index - (res.length - 2) : index;
-          let index: any = Math.floor(this.randomNumber(0, 4));
+          let index: any = Math.floor(this.randomNumber(0, res.length - 1));
           data.userId = res[index].id;
         }
         this.postService.add(data);
+        this.postService.getAll();
       });
       this.addPostForm.reset();
       this.router.navigate(['/posts']);
@@ -88,9 +86,9 @@ export class AddPostComponent implements OnInit {
       userId: this.postData.userId,
       id: this.postData.id,
     };
+    console.log('postData :>> ', postData);
     this.postService.update(postData);
     this.addPostForm.reset();
-    this.postService.getAll();
     this.router.navigate(['/posts']);
   }
 

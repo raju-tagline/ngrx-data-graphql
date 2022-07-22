@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddUserComponent implements OnInit {
   public addUserForm!: FormGroup;
+  public userData: any;
 
   constructor(
     private counterService: CounterService,
@@ -22,19 +23,18 @@ export class AddUserComponent implements OnInit {
     if (this.router.url.includes('userId')) {
       this.activatedRoute.queryParams.subscribe((res: any) => {
         this.counterService.entities$.subscribe((data: any) => {
-          let userData = [];
           if (data.length) {
-            userData = data.find((ele: any) => ele.id === res.userId);
+            this.userData = data.find((ele: any) => ele.id === res.userId);
           } else {
             this.counterService.getAll().subscribe((resp: any) => {
-              userData = resp.find((ele: any) => ele.id === res.userId);
+              this.userData = resp.find((ele: any) => ele.id === res.userId);
             });
           }
           this.addUserForm.patchValue({
-            email: userData.email,
-            address: userData.address,
-            full_name: userData.full_name,
-            gender: userData.gender,
+            email: this.userData.email,
+            address: this.userData.address,
+            full_name: this.userData.full_name,
+            gender: this.userData.gender,
           });
         });
       });
@@ -60,13 +60,33 @@ export class AddUserComponent implements OnInit {
     if (this.addUserForm.invalid) {
       return;
     }
-    const data: any = {
+    if (!this.router.url.includes('userId')) {
+      const data: any = {
+        ...this.addUserForm.value,
+        userId:
+          this.addUserForm.value.email.toLowerCase() +
+          this.addUserForm.value.full_name.toLowerCase(),
+      };
+      this.counterService.add(data);
+      this.counterService.getAll();
+      this.addUserForm.reset();
+      this.router.navigate(['/users']);
+    } else {
+      this.updateUser();
+    }
+  }
+
+  /**
+   * updateUser
+   */
+  public updateUser() {
+    const postData = {
       ...this.addUserForm.value,
-      userId:
-        this.addUserForm.value.email.toLowerCase() +
-        this.addUserForm.value.full_name.toLowerCase(),
+      userId: this.userData.userId,
+      id: this.userData.id,
     };
-    this.counterService.add(data);
+    this.counterService.update(postData);
     this.addUserForm.reset();
+    this.router.navigate(['/users']);
   }
 }
