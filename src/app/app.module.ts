@@ -39,10 +39,10 @@ import { AddUserComponent } from './users/add-user/add-user.component';
     ReactiveFormsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({
+    !environment.production ? StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
-    }),
+    }) : [],
     EntityDataModule.forRoot(entityConfig),
     HttpClientModule,
   ],
