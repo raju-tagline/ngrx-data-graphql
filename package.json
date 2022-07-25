@@ -6,7 +6,7 @@
     "start": "node server.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "ng build ngrx-data --configuration = production"
+    "heroku-postbuild": "ng build ngrx-data --configuration=production"
   },
   "private": true,
   "dependencies": {
