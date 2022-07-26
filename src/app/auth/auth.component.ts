@@ -50,7 +50,7 @@ export class AuthComponent implements OnInit {
           }
         },
         (err) => {
-          console.log('LOGIN ::::>> ', err);
+          console.error('LOGIN ::::>> ', err);
         }
       );
     }

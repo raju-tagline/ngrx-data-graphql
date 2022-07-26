@@ -1,1 +1,77 @@
-<p>dashboard works!</p>
+<div class="container mt-3" *ngIf="studentDetails && studentDetails.name">
+  <div class="main-body">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img
+                src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                alt="Admin"
+                class="rounded-circle"
+                width="150"
+              />
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{
+                  studentDetails && studentDetails.name
+                    ? studentDetails.name
+                    : ""
+                }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{
+                  studentDetails && studentDetails.email
+                    ? studentDetails.email
+                    : ""
+                }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Id</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{
+                  studentDetails && studentDetails._id ? studentDetails._id : ""
+                }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Role</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{
+                  studentDetails && studentDetails.role
+                    ? studentDetails.role
+                    : ""
+                }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-12">
+                <a class="btn btn-info" (click)="editStudent()">Edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
