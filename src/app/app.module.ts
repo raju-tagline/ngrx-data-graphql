@@ -1,4 +1,4 @@
-import { environment } from './../environments/environment.prod';
+import { environment } from './../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -12,8 +12,9 @@ import { AuthInterceptor } from './interseptor/auth.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EntityDataModule } from '@ngrx/data';
+import { EntityDataModule, EntityDataService } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
+import { StudentOverrideService } from './student-data/student-override.service';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, AuthComponent],
@@ -42,4 +43,11 @@ import { entityConfig } from './entity-metadata';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    entityDataService: EntityDataService,
+    studentOverrideService: StudentOverrideService
+  ) {
+    entityDataService.registerService('Student', studentOverrideService);
+  }
+}

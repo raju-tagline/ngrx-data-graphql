@@ -1,5 +1,6 @@
+import { StudentDataService } from './../student-data/student-data.service';
+import { StudentService } from './../service/student.service';
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from '../service/student.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,10 @@ import { StudentService } from '../service/student.service';
 export class DashboardComponent implements OnInit {
   public studentDetails: any = {};
 
-  constructor(private studentService: StudentService) {}
+  constructor(
+    private studentService: StudentService,
+    private studentDataService: StudentDataService
+  ) {}
 
   ngOnInit(): void {
     this.getStudentProfile();
@@ -19,9 +23,11 @@ export class DashboardComponent implements OnInit {
    * getStudentProfile
    */
   public getStudentProfile() {
-    this.studentService.studentData().subscribe((res: any) => {
-      if (res && res.statusCode === 200) {
-        this.studentDetails = res.data;
+    this.studentDataService.entities$.subscribe((res: any) => {
+      if (res && res.length) {
+        this.studentDetails = res[0];
+      } else {
+        this.studentDataService.getAll();
       }
     });
   }
@@ -29,7 +35,5 @@ export class DashboardComponent implements OnInit {
   /**
    * editStudent
    */
-  public editStudent() {
-    
-  }
+  public editStudent() {}
 }
