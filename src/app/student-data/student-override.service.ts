@@ -2,7 +2,8 @@ import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { Update } from '@ngrx/entity';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +23,11 @@ export class StudentOverrideService extends DefaultDataService<any> {
         }
       })
     );
+  }
+
+  override update(studentData: any): Observable<any> {
+    return this.http.put<any>(`${this.url}student/studentProfile`, {
+      ...studentData.changes,
+    });
   }
 }

@@ -18,12 +18,28 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Full Name</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div
+                class="col-sm-9 text-secondary"
+                *ngIf="!router.url.includes('id')"
+              >
                 {{
                   studentDetails && studentDetails.name
                     ? studentDetails.name
                     : ""
                 }}
+              </div>
+              <div
+                class="col-sm-9 text-secondary"
+                *ngIf="router.url.includes('id')"
+              >
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control mb-0"
+                  id="name"
+                  [(ngModel)]="studentName"
+                  [value]="studentName"
+                />
               </div>
             </div>
             <hr />
@@ -66,7 +82,24 @@
             <hr />
             <div class="row">
               <div class="col-sm-12">
-                <a class="btn btn-info" (click)="editStudent()">Edit</a>
+                <a
+                  class="btn btn-info"
+                  (click)="editStudent()"
+                  *ngIf="!router.url.includes('id')"
+                  >Edit</a
+                >
+                <a
+                  class="btn btn-info"
+                  (click)="updateStudent()"
+                  *ngIf="router.url.includes('id')"
+                  >Update</a
+                >
+                <a
+                  class="btn btn-danger ms-2"
+                  (click)="cancelEdit()"
+                  *ngIf="router.url.includes('id')"
+                  >Cancel</a
+                >
               </div>
             </div>
           </div>
