@@ -61,10 +61,7 @@ export class DashboardComponent implements OnInit {
    * updateStudent
    */
   public updateStudent() {
-    if (
-      this.studentName.length >= this.studentDetails.name.length &&
-      this.studentDetails.name !== this.studentName
-    ) {
+    if (this.studentDetails.name !== this.studentName) {
       const updateData = {
         name: this.studentName,
         _id: this.studentDetails._id,
